@@ -26,6 +26,6 @@ Download project & unzip to your web server root directory (ie. www)
 Some will maybe have to create the faucet donation account within CannaCoind
 (The account must use the label set in the config.php ie. FaucetDonations)
 
-Donate: 
-CCN: CWVUagZxizcmF7QcKvF3ynfW4hU4tdKUhp
+### Donate: 
+CCN: CWVUagZxizcmF7QcKvF3ynfW4hU4tdKUhp <br>
 BTC: 1PqmdGtUTdasS19KwBTL2R7xgYEyJrtdhd
