@@ -1,7 +1,7 @@
 # Cannnacoin/Altcoin faucet
 ![To the moon!](images/cannacoin-coin.png)
 
-INSTALL:
+### INSTALL:
 Download project & unzip to your web server root directory (ie. www) 
 
 ### Edit config.php 
