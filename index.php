@@ -13,7 +13,7 @@ include ('templates/header.php');
 <div class="row">
   <div class="span10">
     <?php
-    echo '<center><img src=\'http://cannacoin.cc/images/coinfaucet.png\'><h4>Payout will happen when there are atleast <strong>*25*</strong> submitted!<br></h4>
+    echo '<center><img src=\'../images/coinfaucet.png\'><h4>Payout will happen when there are atleast <strong>*25*</strong> submitted!<br></h4>
     <i>You can only enter once per round, if we detect the same IP or a proxy, you\'ll not be paid.</i>';
     ?>
          
