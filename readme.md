@@ -14,12 +14,12 @@ Download project & unzip to your web server root directory (ie. www)
 	- Edit server.php to accept remote IP for Server/Admin panel access (Line 21)
 
 ### Database
-Create SQL user matching config and grant full permissions to faucet database:
+	- Create SQL user matching config and grant full permissions to faucet database:
 	- CREATE USER 'username'@'localhost' IDENTIFIED BY 'mypass';
 	- GRANT ALL ON dbname.* TO 'user'@'localhost';
 
 #### Import faucet.sql to your database:
-Change to "core" directory
+	- Change to "core" directory
 	- mysql -u user -p database < faucet.sql
 
 ### Notes:
