@@ -1,21 +1,28 @@
-bitcoin faucet public release
+Cannnacoin/Altcoin faucet
 ------------------------------------------
-Forum Thread: https://bitcointalk.org/index.php?topic=101407.0
-this is the simplest version of it, other might get released in time
-
-made by Greedi 2012 (c)
-
 
 INSTALL:
-put files in www dir, edit config.php with proper values
-and dont forget faucet.sql for the db...
-in templates/header.php you have to set you're IP, so you can see server link.
-the same in server.php, set you're IP, so you can access to page.
+Download project & unzip to your web server root directory (ie. www) 
 
-NOTE: Some wil maybe have to create the faucet donation account in there bitcoind
-account have to be FaucetDonations and/or SendOut
+Edit config.php 
+	- don_faucet: CannaCoind address label used for donations/payouts.
+	- btclogin:   RPC User/Pass settings
+	- sqllogin:   Database user/pass settings
 
+Edit header.php to include remote IP for Server/Admin panel access (Line 96)
+Edit server.php to accept remote IP for Server/Admin panel access (Line 21)
+
+Create SQL user matching config and grant full permissions to faucet database:
+CREATE USER 'username'@'localhost' IDENTIFIED BY 'mypass';
+GRANT ALL ON dbname.* TO 'user'@'localhost';
+
+Import faucet.sql to your database:
+Enter "core" directory
+mysql -u user -p database < faucet.sql
+
+NOTE: Some will maybe have to create the faucet donation account within CannaCoind
+(The account must use the label set in the config.php ie. FaucetDonations)
 
 Donate: 
-LTC: Lh4c3cYcmvoksUNJLFT2Z5zsUmKUFgAUF5
-BTC: 1MFH5dY85Ve4Q6KYPGJnfPmiHP2UxmXend
+CCN: CWVUagZxizcmF7QcKvF3ynfW4hU4tdKUhp
+BTC: 1PqmdGtUTdasS19KwBTL2R7xgYEyJrtdhd
