@@ -9,17 +9,18 @@ Download project & unzip to your web server root directory (ie. www)
 	- btclogin:   RPC User/Pass settings
 	- sqllogin:   Database user/pass settings
 
-### Edit header.php to include remote IP for Server/Admin panel access (Line 96)
-### Edit server.php to accept remote IP for Server/Admin panel access (Line 21)
+### Add remote IP to access admin/server panel 
+ 	- Edit header.php to include remote IP for Server/Admin panel access (Line 96)
+	- Edit server.php to accept remote IP for Server/Admin panel access (Line 21)
 
 ### Database
 Create SQL user matching config and grant full permissions to faucet database:
-CREATE USER 'username'@'localhost' IDENTIFIED BY 'mypass';
-GRANT ALL ON dbname.* TO 'user'@'localhost';
+	- CREATE USER 'username'@'localhost' IDENTIFIED BY 'mypass';
+	- GRANT ALL ON dbname.* TO 'user'@'localhost';
 
-Import faucet.sql to your database:
-Enter "core" directory
-mysql -u user -p database < faucet.sql
+#### Import faucet.sql to your database:
+Change to "core" directory
+	- mysql -u user -p database < faucet.sql
 
 ### Notes:
 Some will maybe have to create the faucet donation account within CannaCoind
