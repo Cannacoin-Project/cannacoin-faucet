@@ -5,9 +5,9 @@
 Download project & unzip to your web server root directory (ie. www) 
 
 ### Edit config.php 
-	- don_faucet: CannaCoind address label used for donations/payouts.
-	- btclogin:   RPC User/Pass settings
-	- sqllogin:   Database user/pass settings
+	- $don_faucet: CannaCoind address label used for donations/payouts.
+	- $btclogin:   RPC User/Pass settings
+	- $sqllogin:   Database user/pass settings
 
 ### Add remote IP to access admin/server panel 
  	- Edit header.php to include remote IP for Server/Admin panel access (Line 96)
