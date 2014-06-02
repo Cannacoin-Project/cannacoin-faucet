@@ -43,58 +43,45 @@ if (strtolower(ValidateCaptcha($adscaptchaID, $adsprivkey, $challengeValue, $res
         die();
     } else {
     $ltcaddress = $_POST['BTC'];
-            mysql_query("INSERT INTO dailyltc (ltcaddress, ip)
-    SELECT * FROM (SELECT '$ltcaddress', '$ip') AS tmp
-    WHERE NOT EXISTS (
-    SELECT ip FROM dailyltc WHERE ip = '$ip'
-    ) LIMIT 1;") or die(mysql_error());
-
-            mysql_query("INSERT INTO subtotal (ltcaddress, ip) VALUES('$ltcaddress', '$ip' ) ") or
-                die(mysql_error());
-            $command = "SELECT * FROM dailyltc";
-            $q = mysql_query($command);
-            $rows = mysql_num_rows($q);
-            $entries_needed = 25;
-            if ($rows > $entries_needed) {
-                $command = "SELECT * FROM roundltc";
+        mysql_query("INSERT INTO subtotal (ltcaddress, ip) VALUES('$ltcaddress', '$ip' ) ") or
+                    die(mysql_error());
+                $command = "SELECT * FROM dailyltc";
                 $q = mysql_query($command);
-                $res = mysql_fetch_array($q);
-                $list = mysql_query("SELECT * FROM dailyltc");
-
-                $coins_in_account = $btclient->getbalance("FaucetDonations", 0);
-                if ($coins_in_account >= ($res['roundltc'] * $rows)) {
-                    while ($listw = mysql_fetch_array($list)) {
-                        $btclient->sendfrom("FaucetDonations", $listw['ltcaddress'], $res['roundltc']);
+                $rows = mysql_num_rows($q);
+                $entries_needed = 25; 
+                if ($rows > $entries_needed) {
+                    $command = "SELECT * FROM roundltc";
+                    $q = mysql_query($command);
+                    $res = mysql_fetch_array($q);
+                    $list = mysql_query("SELECT * FROM dailyltc");
+    
+                    $coins_in_account = $btclient->getbalance("FaucetDonations", 0);
+                    if ($coins_in_account >= ($res['roundltc'] * $rows)) {
+                        while ($listw = mysql_fetch_array($list)) {
+                            $btclient->sendfrom("FaucetDonations", $listw['ltcaddress'], $res['roundltc']);
+                        }
+                       
+                        echo srsnot("Congratulations, you were the placed in the round, the round has been reset and payouts have been sent.");
+                        mysql_query("TRUNCATE dailyltc");
+                        mysql_query("UPDATE round set round=round+1");
+                        $totalc = $res['roundltc'] * $rows;
+                        mysql_query("UPDATE dailytotal set total=total+{$totalc}");
+                        echo "</center></div>";
+                        die();
+                    } else {
+                        echo srserr("Uh oh, looks like we haven't got enough donations to pay out. The round will continue until there's enough to pay out.");
+                        echo "</center></div>";
+                        die();
                     }
-                    $n = ordinal(mysql_num_rows($list));
-                    echo srsnot("Congratulations, you were the {$n} in the round, the round has been reset and payouts have been sent.");
-                    mysql_query("TRUNCATE dailyltc");
-                    mysql_query("UPDATE round set round=round+1");
-                    $totalc = $res['roundltc'] * $rows;
-                    mysql_query("UPDATE dailytotal set total=total+{$totalc}");
-                    echo "</center></div>";
-                    include ('templates/sidebar.php');
-                    include ('templates/footer.php');
-                    die();
-                } else {
-                    echo srserr("Uh oh, looks like we haven't got enough donations to pay out. The round will continue until there's enough to pay out.");
-                    echo "</center></div>";
-                    include ('templates/sidebar.php');
-                    include ('templates/footer.php');
-                    die();
                 }
+                //echo "printed.";
+                // echo "</table>";
+                echo "You will get your CCN at the end of this round<br />There are $rows submitted addresses in this round!<br>";
+                echo "<br>If you want to donate to the Faucet: $donaddress (recv: $don)";
             }
-
-            //echo "printan.";
-
-            //echo "printed.";
-            // echo "</table>";
-            echo "You will get your CCN at the end of this round<br />There are $rows submitted addresses in this round!<br>";
-            echo "<br>If you want to donate to the Faucet: $donaddress (recv: $don)";
-        }
     
 } else { // Wrong answer, you may display a new AdsCaptcha and add an error message
-    echo srserr("INVALID CAPTCHA. <a href='http://cannacoin.cc/faucet'>Go back</a>");
+        die ("<h1>The reCAPTCHA wasn't entered correctly.</h1> Go <a href='http://cannacoin.cc/faucet'>back</a> and try it again." ."(reCAPTCHA said: " . $resp->error . ")");
 }
 ?>
 </center>
